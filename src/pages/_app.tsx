@@ -34,14 +34,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 					,
 				]}
 			>
-				{/* <StyledEngineProvider injectFirst>
-					<CacheProvider value={cache}>
-						<ThemeProvider theme={theme}> */}
 				<CssBaseline />
 				<Component {...pageProps} />
-				{/* </ThemeProvider>
-					</CacheProvider>
-				</StyledEngineProvider> */}
 			</ProviderComposer>
 		</>
 	);
