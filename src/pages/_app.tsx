@@ -5,6 +5,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import React from "react";
 import useTheme from "../useTheme";
+import { ProviderComposer, provider } from "../providerComposer";
 
 const cache = createCache({
 	key: "css",
@@ -25,14 +26,23 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 					user-scalable=no, viewport-fit=cover"
 				/>
 			</Head>
-			<StyledEngineProvider injectFirst>
-				<CacheProvider value={cache}>
-					<ThemeProvider theme={theme}>
-						<CssBaseline />
-						<Component {...pageProps} />
-					</ThemeProvider>
-				</CacheProvider>
-			</StyledEngineProvider>
+			<ProviderComposer
+				providers={[
+					provider(ThemeProvider, { theme: theme }),
+					provider(CacheProvider, { value: cache }),
+					provider(StyledEngineProvider, { injectFirst: true }),
+					,
+				]}
+			>
+				{/* <StyledEngineProvider injectFirst>
+					<CacheProvider value={cache}>
+						<ThemeProvider theme={theme}> */}
+				<CssBaseline />
+				<Component {...pageProps} />
+				{/* </ThemeProvider>
+					</CacheProvider>
+				</StyledEngineProvider> */}
+			</ProviderComposer>
 		</>
 	);
 }
